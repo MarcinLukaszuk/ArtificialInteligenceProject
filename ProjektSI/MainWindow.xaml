@@ -1,0 +1,122 @@
+﻿<Window x:Class="ProjektSI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjektSI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" 
+        SizeChanged="ZmianaRozdzialki"
+        x:Name="myWindow" Closing="ClosingEvent"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Window.CommandBindings>
+        <CommandBinding Command="local:MyCommands.SetStartNode" Executed="SetStartNodeExecute" CanExecute="CanExecuteSet"></CommandBinding>
+        <CommandBinding Command="local:MyCommands.SetEndNode" Executed="SetEndNodeExecute" CanExecute="CanExecuteSet"></CommandBinding>
+        <CommandBinding Command="local:MyCommands.CleanLabyrinth" Executed="CleanLabyrinthExecute" CanExecute="CanExecuteSet"></CommandBinding>
+        <CommandBinding Command="local:MyCommands.ResetLabyrinth" Executed="ResetLabyrinthExecute" CanExecute="CanExecuteSet"></CommandBinding>
+        <CommandBinding Command="local:MyCommands.InvertLabyrinth" Executed="InvertLabExecuted" CanExecute="CanExecuteSet"></CommandBinding>
+        <CommandBinding Command="local:MyCommands.StartAlghoritm" Executed="StartAlgorithmExecuted" CanExecute="CanExecuteSet"></CommandBinding>
+        <CommandBinding Command="local:MyCommands.StopAlghoritm" Executed="StopAlgorithmExecuted" CanExecute="CanExecuteStop"></CommandBinding>
+        <CommandBinding Command="local:MyCommands.SaveAlghoritm" Executed="SaveLabyrinthExecuted" CanExecute="CanExecuteSet"></CommandBinding>
+        <CommandBinding Command="local:MyCommands.LoadAlghoritm" Executed="LoadLabyrinthExecuted" CanExecute="CanExecuteSet"></CommandBinding>
+        <CommandBinding Command="local:MyCommands.Summary" Executed="SummaryExecuted" CanExecute="CanExecuteSet"></CommandBinding>
+
+    </Window.CommandBindings>
+    <Window.Resources>
+        <local:FieldColorConverter x:Key="FieldColorConverter"
+                HallBrush="Blue"
+                WallBrush="Gray"
+                StartNodeBrush="Green"
+                EndNodeBrush="Red" 
+                VisitedNodeBrush="Yellow"
+                SpecialNodeBrush="Purple"/>
+
+        <DataTemplate x:Key="DataTemplate_Level2">
+            <Rectangle  Tag="{Binding}" 
+                   Fill="{Binding Path=TypSciany,  Converter={StaticResource FieldColorConverter}}"                 
+                   Height="{Binding ElementName=myWindow, Path=HeightRectangle}"
+                   Width="{Binding ElementName=myWindow, Path=WidthRectangle}"                     
+                   MouseMove="MousePress">
+
+                <Rectangle.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="local:MyCommands.SetStartNode" CommandParameter="{Binding}"/>
+                        <MenuItem Command="local:MyCommands.SetEndNode" CommandParameter="{Binding}"/>
+                    </ContextMenu>
+                </Rectangle.ContextMenu>
+            </Rectangle>
+        </DataTemplate>
+
+        <DataTemplate x:Key="DataTemplate_Level1">
+            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource DataTemplate_Level2}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </DataTemplate>
+    </Window.Resources>
+
+
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Name="mojstack" >
+            <Button Content="START ALGORITHM" Command="local:MyCommands.StartAlghoritm"/>
+            <Button Content="STOP" Command="local:MyCommands.StopAlghoritm" />
+            <StackPanel Name="spRadioButton" >
+                <RadioButton IsChecked="True" Content="DFSAlgorithm" Tag="DFS"/>
+                <RadioButton Content="BFSAlgorithm" Tag="BFS"/>
+                <RadioButton Content="Greedy Best first search" Tag="BEST"/>
+            </StackPanel>
+
+            <Button Content="CleanLab" Command="local:MyCommands.CleanLabyrinth"/>
+            <Button Content="EmptyLab" Command="local:MyCommands.ResetLabyrinth"/>
+            <Button Content="InvertLab" Command="local:MyCommands.InvertLabyrinth" />
+            <Button Content="SaveLab" Command="local:MyCommands.SaveAlghoritm"/>
+            <Button Content="LoadLab" Command="local:MyCommands.LoadAlghoritm" />
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Speed:"></Label>
+
+                <Slider Grid.Column="1" 
+                        Value="{Binding Path=Delay, Mode=TwoWay}" 
+                        Maximum="300"
+                        Minimum="1" 
+                        TickPlacement="Both"
+                        IsSnapToTickEnabled="True"
+                        Ticks="1, 5, 10,20,30,40, 50, 100,150,200,250,300"/>
+                <TextBox Grid.Column="2" Text="{Binding Path=Delay}"></TextBox>
+            </Grid>
+            <Button Content="SUMMARY" Command="local:MyCommands.Summary" />
+        </StackPanel>
+        <Grid Grid.Column="1" Grid.RowSpan="2" Name="PoleAlgorytm" >
+
+            <ItemsControl  x:Name="lst" Margin="30" ItemTemplate="{DynamicResource DataTemplate_Level1}">
+            </ItemsControl>
+
+        </Grid>
+
+
+
+
+
+
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,67 @@
+﻿<Window x:Class="ProjektSI.SubmitWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjektSI"
+        mc:Ignorable="d"
+        Title="Submit" Height="250" Width="300" MaxHeight="250" MaxWidth="300">
+    <DockPanel Name="spSummary">
+        <TextBlock DockPanel.Dock="Top" Text="SUMMARY" Grid.ColumnSpan="2" FontSize="22" FontFamily="Bauhaus 93" Margin="10" TextAlignment="Center"/>
+
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Nazwa algorytmu:" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0"  Grid.Column="1"  Text="Koszt obliczeniowy:"  TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="0"  Grid.Column="2"  Text="Długość ścieżki:"  TextAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="DFS"  VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+            <TextBlock Name="tbDFSKoszt" Grid.Row="1"  Grid.Column="1"   VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+            <TextBlock Name="tbDFSPath" Grid.Row="1"  Grid.Column="2"   VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+
+            <TextBlock Text="BFS" Grid.Row="2"  Grid.Column="0"  VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+            <TextBlock Name="tbBFSKoszt" Grid.Row="2"  Grid.Column="1"  VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+            <TextBlock Name="tbBFSPath" Grid.Row="2"  Grid.Column="2"  VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+
+            <TextBlock  Text="Best First Search" Grid.Row="3" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+            <TextBlock Name="tbBestKoszt" Grid.Row="3"  Grid.Column="1" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+            <TextBlock Name="tbBestPath" Grid.Row="3"  Grid.Column="2" VerticalAlignment="Center"  HorizontalAlignment="Center"/>
+
+
+
+            <Rectangle Grid.Row="0" Grid.Column="0" Stroke="Black"/>
+            <Rectangle Grid.Row="1" Grid.Column="0" Stroke="Black"/>
+            <Rectangle Grid.Row="2" Grid.Column="0" Stroke="Black"/>
+            <Rectangle Grid.Row="3" Grid.Column="0" Stroke="Black"/>
+
+            <Rectangle Grid.Row="1" Grid.Column="1" Stroke="Black"/>
+            <Rectangle Grid.Row="2" Grid.Column="1" Stroke="Black"/>
+            <Rectangle Grid.Row="3" Grid.Column="1" Stroke="Black"/>
+            <Rectangle Grid.Row="0" Grid.Column="1" Stroke="Black"/>
+
+            <Rectangle Grid.Row="1" Grid.Column="2" Stroke="Black"/>
+            <Rectangle Grid.Row="2" Grid.Column="2" Stroke="Black"/>
+            <Rectangle Grid.Row="3" Grid.Column="2" Stroke="Black"/>
+            <Rectangle Grid.Row="0" Grid.Column="2" Stroke="Black"/>
+
+
+
+
+        </Grid>
+
+        <Button DockPanel.Dock="Bottom" Content="OK" Click="CloseWindow"/>
+        <Grid></Grid>
+    </DockPanel>
+</Window>
